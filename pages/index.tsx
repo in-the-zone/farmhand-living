@@ -6,7 +6,7 @@ import MobileForm from '../components/MobileForm';
 import SVG from '../components/svg';
 
 export default function HomePage() {
-  const [language, setLanguage] = useState<string>('english');
+  const [language, setLanguage] = useState<string | null>('english');
 
   return (
     <>

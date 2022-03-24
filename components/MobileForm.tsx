@@ -1,37 +1,37 @@
 /* eslint-disable max-len */
 import React, { useState } from 'react';
-import { Box, Button, Center, Group, RingProgress, Select, Text, Textarea, TextInput, Switch } from '@mantine/core';
+import { Box, Button, Center, Group, RingProgress, Select, Text, Textarea, TextInput } from '@mantine/core';
 import { useForm } from '@mantine/form';
 
 const steps = [
     {
         step: 0,
-        percentage: 0,
+        percentage: 0 as number,
         prompt: 'Select Language',
     },
     {
         step: 1,
-        percentage: 20,
+        percentage: 20 as number,
         prompt: 'Select Affiliate',
     },
     {
         step: 2,
-        percentage: 40,
+        percentage: 40 as number,
         prompt: 'Select Address',
     },
     {
         step: 3,
-        percentage: 60,
+        percentage: 60 as number,
         prompt: 'Select Issue',
     },
     {
         step: 4,
-        percentage: 80,
+        percentage: 80 as number,
         prompt: 'More Info',
     },
     {
         step: 5,
-        percentage: 100,
+        percentage: 100 as number,
         prompt: 'Complete!',
     },
 ];
@@ -52,8 +52,8 @@ const issues = [
 ];
 
 interface Props {
-    language: string,
-    setLanguage: React.Dispatch<React.SetStateAction<string>>,
+    language: string | null,
+    setLanguage: React.Dispatch<React.SetStateAction<string | null>>,
 }
 
 const MobileForm = ({ language, setLanguage }: Props) => {
@@ -84,7 +84,7 @@ const MobileForm = ({ language, setLanguage }: Props) => {
                 <RingProgress
                   size={100}
                   sections={[
-                      { value: `${steps[active].percentage}`, color: '#68b5e8' },
+                      { value: `${steps[active].percentage}` as unknown as number, color: '#68b5e8' },
                     ]}
                   label={
                         <Text color="blue" weight={700} align="center" size="lg">

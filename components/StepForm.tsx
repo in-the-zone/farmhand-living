@@ -18,8 +18,8 @@ const issues = [
 ];
 
 interface Props {
-    language: string,
-    setLanguage: React.Dispatch<React.SetStateAction<string>>,
+    language: string | null,
+    setLanguage: React.Dispatch<React.SetStateAction<string | null>>,
 }
 
 const StepForm = ({ language, setLanguage }: Props) => {
