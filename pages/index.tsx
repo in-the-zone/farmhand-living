@@ -1,14 +1,74 @@
-import { Title, Text } from '@mantine/core';
+/* eslint-disable no-console */
+import React, { useState } from 'react';
+import { Box, MediaQuery, Text, Center } from '@mantine/core';
+import StepForm from '../components/StepForm';
+import MobileForm from '../components/MobileForm';
+import SVG from '../components/svg';
 
 export default function HomePage() {
+  const [language, setLanguage] = useState<string>('english');
+
   return (
     <>
-      <Title sx={{ fontSize: 100, fontWeight: 900, letterSpacing: -2 }} align="center" mt={100}>
-        Welcome to{' '}
-        <Text inherit variant="gradient" component="span">
-            Farmhand Living
+    {/* mobile logo */}
+    <MediaQuery
+      largerThan="sm"
+      styles={{ display: 'none' }}
+    >
+      <Center pt={30} pb={10}>
+          <SVG.Logo
+            fill="white"
+            style={{ width: '90%' }}
+          />
+      </Center>
+    </MediaQuery>
+
+    {/* desktop logo */}
+    <MediaQuery
+      smallerThan="sm"
+      styles={{ display: 'none' }}
+    >
+      <Center pt={30} pb={10}>
+          <SVG.Logo
+            fill="white"
+            style={{ width: '30%' }}
+          />
+      </Center>
+    </MediaQuery>
+
+      <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+        <Text
+          sx={{
+            fontSize: 24,
+            fontWeight: 600,
+            padding: '2% 2% 2% 2%',
+            '@media (max-width: 755px)': {
+              padding: '4% 2% 4% 2%',
+              fontSize: 16 },
+          }}
+        >
+            Welcome to the Player Help Portal
         </Text>
-      </Title>
+      </Box>
+
+      <MediaQuery
+        smallerThan="sm"
+        styles={{ display: 'none' }}
+      >
+        <Box>
+          <StepForm language={language} setLanguage={setLanguage} />
+        </Box>
+      </MediaQuery>
+
+      <MediaQuery
+        largerThan="sm"
+        styles={{ display: 'none' }}
+      >
+        <Box>
+          <MobileForm language={language} setLanguage={setLanguage} />
+        </Box>
+      </MediaQuery>
+
     </>
   );
 }

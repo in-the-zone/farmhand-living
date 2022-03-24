@@ -1,6 +1,6 @@
 import { AppProps } from 'next/app';
 import Head from 'next/head';
-import { MantineProvider, NormalizeCSS, GlobalStyles } from '@mantine/core';
+import { MantineProvider, NormalizeCSS, GlobalStyles, Container } from '@mantine/core';
 import { NotificationsProvider } from '@mantine/notifications';
 
 export default function App(props: AppProps) {
@@ -9,21 +9,24 @@ export default function App(props: AppProps) {
   return (
     <>
       <Head>
-        <title>Mantine next example</title>
+        <title>Farmhand Living</title>
         <meta name="viewport" content="minimum-scale=1, initial-scale=1, width=device-width" />
       </Head>
 
       <MantineProvider
+        withNormalizeCSS
         theme={{
           /** Put your mantine theme override here */
-          colorScheme: 'light',
+          colorScheme: 'dark',
         }}
       >
+        <Container size="xl">
+          <GlobalStyles />
+          <NotificationsProvider>
+            <Component {...pageProps} />
+          </NotificationsProvider>
+        </Container>
         <NormalizeCSS />
-        <GlobalStyles />
-        <NotificationsProvider>
-          <Component {...pageProps} />
-        </NotificationsProvider>
       </MantineProvider>
     </>
   );
