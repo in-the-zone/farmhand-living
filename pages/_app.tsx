@@ -1,6 +1,6 @@
 import { AppProps } from 'next/app';
 import Head from 'next/head';
-import { MantineProvider, NormalizeCSS, GlobalStyles, Container } from '@mantine/core';
+import { MantineProvider, NormalizeCSS, Container } from '@mantine/core';
 import { NotificationsProvider } from '@mantine/notifications';
 
 export default function App(props: AppProps) {
@@ -22,7 +22,6 @@ export default function App(props: AppProps) {
         }}
       >
         <Container size="xl">
-          <GlobalStyles />
           <NotificationsProvider>
             <Component {...pageProps} />
           </NotificationsProvider>
