@@ -47,7 +47,8 @@ const StepForm = ({ language, setLanguage }: Props) => {
 
   return (
     <>
-        <form onSubmit={form.onSubmit(nextStep)} name="desktopContactForm" method="POST" data-netlify="true" data-netlify-honeypot="bot-field">
+        <form onSubmit={form.onSubmit(nextStep)} name="desktopContactForm" method="POST" data-netlify="true" action="/" data-netlify-honeypot="bot-field">
+            <input type="hidden" name="form-name" value="desktopContactForm" />
             <p hidden>
                 <label>
                     Don’t fill this out: <input name="bot-field" />

@@ -120,7 +120,8 @@ const MobileForm = ({ language, setLanguage }: Props) => {
                 </Box>
             </Center>
 
-        <form onSubmit={form.onSubmit(nextStep)} name="mobileContactForm" method="POST" data-netlify="true" data-netlify-honeypot="bot-field">
+        <form onSubmit={form.onSubmit(nextStep)} name="mobileContactForm" method="POST" data-netlify="true" action="/" data-netlify-honeypot="bot-field">
+        <input type="hidden" name="form-name" value="mobileContactForm" />
             <p hidden>
                 <label>
                     Don’t fill this out: <input name="bot-field" />
