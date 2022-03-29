@@ -47,7 +47,7 @@ const StepForm = ({ language, setLanguage }: Props) => {
 
   return (
     <>
-        <form onSubmit={form.onSubmit(nextStep)} name="desktopContactForm" method="POST" data-netlify="true" action="/form-success" data-netlify-honeypot="bot-field">
+        <form onSubmit={form.onSubmit(nextStep)} name="desktopContactForm" method="POST" data-netlify="true" data-netlify-honeypot="bot-field">
             <p hidden>
                 <label>
                     Don’t fill this out: <input name="bot-field" />
@@ -77,6 +77,7 @@ const StepForm = ({ language, setLanguage }: Props) => {
                   placeholder={language === 'English' ? 'Select Your Affiliate' : 'Selecciona Tu Equipo'}
                   data={affiliates}
                   sx={{ width: '40%', padding: '3%' }}
+                  name="affiliate"
                 />
                 </Center>
             </Stepper.Step>
@@ -92,7 +93,7 @@ const StepForm = ({ language, setLanguage }: Props) => {
                   data={addresses}
                   sx={{ width: '40%', padding: '3%' }}
                   required
-
+                  name="address"
                 />
                 </Center>
             </Stepper.Step>
@@ -107,6 +108,7 @@ const StepForm = ({ language, setLanguage }: Props) => {
                   data={issues}
                   sx={{ width: '40%', padding: '3%' }}
                   required
+                  name="issue"
                 />
                 </Center>
             </Stepper.Step>
@@ -120,7 +122,7 @@ const StepForm = ({ language, setLanguage }: Props) => {
                   placeholder={language === 'English' ? 'Full Name' : 'Nombre Completa'}
                   size="lg"
                   required
-
+                  name="name"
                 />
                 <TextInput
                   size="lg"
@@ -128,7 +130,7 @@ const StepForm = ({ language, setLanguage }: Props) => {
                   label={language === 'English' ? 'Phone Number' : 'Numero De Telefono'}
                   placeholder={language === 'English' ? 'Phone Number' : 'Numbero De Telefono'}
                   required
-
+                  name="phone"
                 />
                 <Textarea
                   size="lg"
@@ -136,6 +138,7 @@ const StepForm = ({ language, setLanguage }: Props) => {
                   label={language === 'English' ? 'More Info' : 'Mas Informacion'}
                   placeholder={language === 'English' ? 'Tell us more about your inquiry...' : 'Danos más información sobre tu consulta'}
                   required
+                  name="message"
                 />
                 </Box>
                 </Center>

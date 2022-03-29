@@ -120,7 +120,7 @@ const MobileForm = ({ language, setLanguage }: Props) => {
                 </Box>
             </Center>
 
-        <form onSubmit={form.onSubmit(nextStep)} name="mobileContactForm" method="POST" data-netlify="true" action="/form-success" data-netlify-honeypot="bot-field">
+        <form onSubmit={form.onSubmit(nextStep)} name="mobileContactForm" method="POST" data-netlify="true" data-netlify-honeypot="bot-field">
             <p hidden>
                 <label>
                     Don’t fill this out: <input name="bot-field" />
@@ -134,6 +134,7 @@ const MobileForm = ({ language, setLanguage }: Props) => {
                       placeholder={language === 'English' ? 'Select Your Affiliate' : 'Selecciona Tu Equipo'}
                       data={affiliates}
                       sx={{ width: '100%', padding: '10%' }}
+                      name="affiliate"
                     />
                 </Box>
             </Center>
@@ -146,6 +147,7 @@ const MobileForm = ({ language, setLanguage }: Props) => {
                       placeholder={language === 'English' ? 'Select Your Address' : 'Selecciona Un Dirección'}
                       data={addresses}
                       sx={{ width: '100%', padding: '10%' }}
+                      name="address"
                     />
                 </Box>
             </Center>
@@ -158,6 +160,7 @@ const MobileForm = ({ language, setLanguage }: Props) => {
                       placeholder={language === 'English' ? 'Select Your Issue' : 'Selecciona Una Consulta'}
                       data={issues}
                       sx={{ width: '100%', padding: '10%' }}
+                      name="issue"
                     />
                 </Box>
             </Center>
@@ -169,18 +172,21 @@ const MobileForm = ({ language, setLanguage }: Props) => {
                   label={language === 'English' ? 'Full Name' : 'Nombre Completa'}
                   placeholder={language === 'English' ? 'Full Name' : 'Nombre Completa'}
                   required
+                  name="name"
                 />
                 <TextInput
                   {...form.getInputProps('phone')}
                   label={language === 'English' ? 'Phone Number' : 'Numero De Telefono'}
                   placeholder={language === 'English' ? 'Phone Number' : 'Numbero De Telefono'}
                   required
+                  name="phone"
                 />
                 <Textarea
                   {...form.getInputProps('message')}
                   label={language === 'English' ? 'More Info' : 'Mas Informacion'}
                   placeholder={language === 'English' ? 'Tell us more about your inquiry...' : 'Danos más información sobre tu consulta'}
                   required
+                  name="message"
                 />
             </Box>
             </Center>
