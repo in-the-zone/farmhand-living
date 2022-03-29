@@ -1,4 +1,5 @@
-import { Stepper, Center, Select, Box, TextInput, Textarea, Button, Group } from '@mantine/core';
+/* eslint-disable jsx-a11y/label-has-associated-control */
+import { Stepper, Center, Select, Box, TextInput, Textarea, Button, Group, Text } from '@mantine/core';
 import React, { useState } from 'react';
 import { useForm } from '@mantine/form';
 
@@ -40,20 +41,26 @@ const StepForm = ({ language, setLanguage }: Props) => {
         validate: {
             name: (value) => (value.length < 2 ? 'Name must have at least 2 letters' : null),
             phone: (value) => (value.length < 10 ? 'Please Enter Valid Phone Number' : null),
-            message: (value) => (value.length < 2 ? 'Please give us sufficient information about your problem' : null),
+            message: (value) => (value.length < 2 ? 'Please give us sufficient information about your issue' : null),
         },
     });
 
   return (
     <>
-        <form onSubmit={form.onSubmit(nextStep)}>
+        <form onSubmit={form.onSubmit(nextStep)} name="mobileContactForm" method="POST" data-netlify="true" action="/form-success" data-netlify-honeypot="bot-field">
+            <p hidden>
+                <label>
+                    Don’t fill this out: <input name="bot-field" />
+                </label>
+            </p>
             <Stepper active={active} onStepClick={setActive} breakpoint="sm" size="lg" orientation="horizontal">
-                <Stepper.Step label="Language" description="Select A Language">
+                <Stepper.Step label={language === 'English' ? 'Language' : 'Idioma'} description={language === 'English' ? 'Select A Language' : 'Selecciona Un Idioma'}>
                     <Center>
                         <Select
+                          size="lg"
                           name="language"
                           value={language}
-                          label="Select Your Language"
+                          label={language === 'English' ? 'Select A Language/Idioma' : 'Selecciona Un Idioma'}
                           placeholder="Pick one"
                           data={['English', 'Spanish']}
                           sx={{ width: '40%', padding: '3%' }}
@@ -61,27 +68,27 @@ const StepForm = ({ language, setLanguage }: Props) => {
                         />
                     </Center>
                 </Stepper.Step>
-            <Stepper.Step label="Affiliate" description="Select Your Affiliate">
+            <Stepper.Step label={language === 'English' ? 'Affiliate' : 'Equipo'} description={language === 'English' ? 'Select A Language' : 'Selecciona Un Equipo'}>
                 <Center>
                 <Select
+                  {...form.getInputProps('affiliate')}
                   size="lg"
-                  label="Select Your Affiliate"
-                  placeholder="Pick one"
+                  label={language === 'English' ? 'Select Your Affiliate' : 'Selecciona Tu Equipo'}
+                  placeholder={language === 'English' ? 'Select Your Affiliate' : 'Selecciona Tu Equipo'}
                   data={affiliates}
                   sx={{ width: '40%', padding: '3%' }}
-                  required
-
                 />
                 </Center>
             </Stepper.Step>
 
-            <Stepper.Step label="Address" description="Select Your Address">
+            <Stepper.Step label={language === 'English' ? 'Address' : 'Dirección'} description={language === 'English' ? 'Select Your Address' : 'Selecciona Un Dirección'}>
                 <Center>
                 <Select
+                  {...form.getInputProps('address')}
                   size="lg"
-                  label="Select Your Address"
+                  label={language === 'English' ? 'Select Your Address' : 'Selecciona Un Dirección'}
+                  placeholder={language === 'English' ? 'Select Your Address' : 'Selecciona Un Dirección'}
                   searchable
-                  placeholder="Pick one"
                   data={addresses}
                   sx={{ width: '40%', padding: '3%' }}
                   required
@@ -90,12 +97,13 @@ const StepForm = ({ language, setLanguage }: Props) => {
                 </Center>
             </Stepper.Step>
 
-            <Stepper.Step label="Issue" description="Select You Issue">
+            <Stepper.Step label={language === 'English' ? 'Issue' : 'Consulta'} description={language === 'English' ? 'Select Your Issue' : 'Selecciona Una Consulta'}>
                 <Center>
                 <Select
+                  {...form.getInputProps('issue')}
+                  label={language === 'English' ? 'Select Your Issue' : 'Selecciona Una Consulta'}
+                  placeholder={language === 'English' ? 'Select Your Issue' : 'Selecciona Una Consulta'}
                   size="lg"
-                  label="Select Your Issue"
-                  placeholder="Pick one"
                   data={issues}
                   sx={{ width: '40%', padding: '3%' }}
                   required
@@ -103,27 +111,30 @@ const StepForm = ({ language, setLanguage }: Props) => {
                 </Center>
             </Stepper.Step>
 
-            <Stepper.Step label="Contact" description="Give us more info">
+            <Stepper.Step label={language === 'English' ? 'Contact' : 'Contacto'} description={language === 'English' ? 'Give us more info' : 'Danos más información'}>
                 <Center>
                 <Box sx={{ width: '70%' }}>
                 <TextInput
+                  {...form.getInputProps('name')}
+                  label={language === 'English' ? 'Full Name' : 'Nombre Completa'}
+                  placeholder={language === 'English' ? 'Full Name' : 'Nombre Completa'}
                   size="lg"
-                  placeholder="Your name"
-                  label="Full Name"
                   required
 
                 />
                 <TextInput
                   size="lg"
-                  placeholder="Phone Number"
-                  label="Phone"
+                  {...form.getInputProps('phone')}
+                  label={language === 'English' ? 'Phone Number' : 'Numero De Telefono'}
+                  placeholder={language === 'English' ? 'Phone Number' : 'Numbero De Telefono'}
                   required
 
                 />
                 <Textarea
                   size="lg"
-                  placeholder="Tell us more about your problem..."
-                  label="More Info"
+                  {...form.getInputProps('message')}
+                  label={language === 'English' ? 'More Info' : 'Mas Informacion'}
+                  placeholder={language === 'English' ? 'Tell us more about your inquiry...' : 'Danos más información sobre tu consulta'}
                   required
                 />
                 </Box>
@@ -131,16 +142,18 @@ const StepForm = ({ language, setLanguage }: Props) => {
             </Stepper.Step>
             <Stepper.Completed>
                 <Center sx={{ paddingTop: '5%', paddingBottom: '5%' }}>
-                    Thank you for your submission!
+                    <Text sx={{ fontSize: 24, fontWeight: 600 }}>
+                        {language === 'English' ? 'Thank you for your submission!' : 'Gracias Por Tu Envío'}
+                    </Text>
                 </Center>
             </Stepper.Completed>
             </Stepper>
 
             {active < 5 &&
             <Group position="center" mt="xl">
-            {active >= 1 && <Button size="lg" variant="default" onClick={prevStep}>Back</Button>}
-            {active <= 3 && <Button size="lg" onClick={nextStep}>Next step</Button> }
-            {active === 4 && <Button size="lg" type="submit">Submit</Button>}
+            {active >= 1 && <Button size="md" variant="default" onClick={prevStep}> {language === 'English' ? 'Back' : 'Atrás'} </Button>}
+            {active <= 3 && <Button size="md" onClick={nextStep}>{language === 'English' ? 'Next Step' : 'Próximo Paso'}</Button> }
+            {active === 4 && <Button type="submit" size="md">{language === 'English' ? 'Submit' : 'Enviar'}</Button>}
             </Group>
             }
         </form>

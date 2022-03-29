@@ -5,8 +5,13 @@ import StepForm from '../components/StepForm';
 import MobileForm from '../components/MobileForm';
 import SVG from '../components/svg';
 
+const welcomeMessage = {
+  english: 'Welcome to the Player Help Portal',
+  spanish: 'Bienvenido al Portal de Ayuda',
+};
+
 export default function HomePage() {
-  const [language, setLanguage] = useState<string | null>('english');
+  const [language, setLanguage] = useState<string | null>('English');
 
   return (
     <>
@@ -47,7 +52,7 @@ export default function HomePage() {
               fontSize: 16 },
           }}
         >
-            Welcome to the Player Help Portal
+            {language === 'English' ? welcomeMessage.english : welcomeMessage.spanish}
         </Text>
       </Box>
 

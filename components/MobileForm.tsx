@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/label-has-associated-control */
 /* eslint-disable max-len */
 import React, { useState } from 'react';
 import { Box, Button, Center, Group, RingProgress, Select, Text, Textarea, TextInput } from '@mantine/core';
@@ -8,31 +9,38 @@ const steps = [
         step: 0,
         percentage: 0 as number,
         prompt: 'Select Language',
+        spanish: 'Selecciona Un Idioma',
     },
     {
         step: 1,
         percentage: 20 as number,
         prompt: 'Select Affiliate',
+        spanish: 'Selecciona Un Equipo',
     },
     {
         step: 2,
         percentage: 40 as number,
         prompt: 'Select Address',
+        spanish: 'Selecciona Un Dirección',
     },
     {
         step: 3,
         percentage: 60 as number,
         prompt: 'Select Issue',
+        spanish: 'Selecciona Una Consulta',
     },
     {
         step: 4,
         percentage: 80 as number,
         prompt: 'More Info',
+        spanish: 'Mas Informacion',
+
     },
     {
         step: 5,
         percentage: 100 as number,
         prompt: 'Complete!',
+        spanish: 'Completo!',
     },
 ];
 
@@ -74,7 +82,7 @@ const MobileForm = ({ language, setLanguage }: Props) => {
         validate: {
             name: (value) => (value.length < 2 ? 'Name must have at least 2 letters' : null),
             phone: (value) => (value.length < 10 ? 'Please Enter Valid Phone Number' : null),
-            message: (value) => (value.length < 2 ? 'Please give us sufficient information about your problem' : null),
+            message: (value) => (value.length < 2 ? 'Please give us sufficient information about your issue' : null),
         },
     });
 
@@ -84,7 +92,7 @@ const MobileForm = ({ language, setLanguage }: Props) => {
                 <RingProgress
                   size={100}
                   sections={[
-                      { value: `${steps[active].percentage}` as unknown as number, color: '#68b5e8' },
+                      { value: steps[active].percentage, color: '#68b5e8' },
                     ]}
                   label={
                         <Text color="blue" weight={700} align="center" size="lg">
@@ -93,8 +101,8 @@ const MobileForm = ({ language, setLanguage }: Props) => {
                     }
                   roundCaps
                 />
-                <Text color="blue" weight={700} align="center" size="xl" sx={{ paddingLeft: '5%' }}>
-                    {steps[active].prompt}
+                <Text color="blue" weight={700} align="center" size="xl" sx={{ paddingLeft: '3%' }}>
+                    {language === 'English' ? steps[active].prompt : steps[active].spanish}
                 </Text>
             </Box>
 
@@ -103,7 +111,7 @@ const MobileForm = ({ language, setLanguage }: Props) => {
                     <Select
                       name="language"
                       value={language}
-                      label="Select Your Language"
+                      label={language === 'English' ? 'Select A Language/Idioma' : 'Selecciona Un Idioma'}
                       placeholder="Pick one"
                       data={['English', 'Spanish']}
                       sx={{ width: '100%', padding: '10%' }}
@@ -112,13 +120,18 @@ const MobileForm = ({ language, setLanguage }: Props) => {
                 </Box>
             </Center>
 
-        <form onSubmit={form.onSubmit(nextStep)}>
+        <form onSubmit={form.onSubmit(nextStep)} name="mobileContactForm" method="POST" data-netlify="true" action="/form-success" data-netlify-honeypot="bot-field">
+            <p hidden>
+                <label>
+                    Don’t fill this out: <input name="bot-field" />
+                </label>
+            </p>
             <Center sx={active === 1 ? { display: 'block' } : { display: 'none' }}>
                 <Box>
                     <Select
                       {...form.getInputProps('affiliate')}
-                      label="Select Your Affiliate"
-                      placeholder="Select Your Affiliate"
+                      label={language === 'English' ? 'Select Your Affiliate' : 'Selecciona Tu Equipo'}
+                      placeholder={language === 'English' ? 'Select Your Affiliate' : 'Selecciona Tu Equipo'}
                       data={affiliates}
                       sx={{ width: '100%', padding: '10%' }}
                     />
@@ -129,8 +142,8 @@ const MobileForm = ({ language, setLanguage }: Props) => {
                 <Box>
                     <Select
                       {...form.getInputProps('address')}
-                      label="Select Your Address"
-                      placeholder="Pick one"
+                      label={language === 'English' ? 'Select Your Address' : 'Selecciona Un Dirección'}
+                      placeholder={language === 'English' ? 'Select Your Address' : 'Selecciona Un Dirección'}
                       data={addresses}
                       sx={{ width: '100%', padding: '10%' }}
                     />
@@ -141,8 +154,8 @@ const MobileForm = ({ language, setLanguage }: Props) => {
                 <Box>
                     <Select
                       {...form.getInputProps('issue')}
-                      label="Select Your Issue"
-                      placeholder="Pick one"
+                      label={language === 'English' ? 'Select Your Issue' : 'Selecciona Una Consulta'}
+                      placeholder={language === 'English' ? 'Select Your Issue' : 'Selecciona Una Consulta'}
                       data={issues}
                       sx={{ width: '100%', padding: '10%' }}
                     />
@@ -153,20 +166,20 @@ const MobileForm = ({ language, setLanguage }: Props) => {
             <Box sx={{ width: '100%' }}>
                 <TextInput
                   {...form.getInputProps('name')}
-                  placeholder="Your name"
-                  label="Full Name"
+                  label={language === 'English' ? 'Full Name' : 'Nombre Completa'}
+                  placeholder={language === 'English' ? 'Full Name' : 'Nombre Completa'}
                   required
                 />
                 <TextInput
                   {...form.getInputProps('phone')}
-                  placeholder="Phone Number"
-                  label="Phone"
+                  label={language === 'English' ? 'Phone Number' : 'Numero De Telefono'}
+                  placeholder={language === 'English' ? 'Phone Number' : 'Numbero De Telefono'}
                   required
                 />
                 <Textarea
                   {...form.getInputProps('message')}
-                  placeholder="Tell us more about your problem..."
-                  label="More Info"
+                  label={language === 'English' ? 'More Info' : 'Mas Informacion'}
+                  placeholder={language === 'English' ? 'Tell us more about your inquiry...' : 'Danos más información sobre tu consulta'}
                   required
                 />
             </Box>
@@ -182,10 +195,10 @@ const MobileForm = ({ language, setLanguage }: Props) => {
                             padding: '20% 2% 2% 2%',
                             '@media (max-width: 755px)': {
                             fontSize: 20,
-                        textAlign: 'center' },
+                            textAlign: 'center' },
                         }}
                         >
-                        Input Recieved. Thank You!
+                            {language === 'English' ? 'Thank you for your submission!' : 'Gracias Por Tu Envío'}
                         </Text>
                     </Center>
                 </Box>
@@ -193,9 +206,9 @@ const MobileForm = ({ language, setLanguage }: Props) => {
 
             {active < 5 &&
             <Group position="center" mt="xl">
-            {active >= 1 && <Button size="md" variant="default" onClick={prevStep}>Back</Button>}
-            {active <= 3 && <Button size="md" onClick={nextStep}>Next step</Button> }
-            {active === 4 && <Button type="submit" size="md">Submit</Button>}
+            {active >= 1 && <Button size="md" variant="default" onClick={prevStep}> {language === 'English' ? 'Back' : 'Atrás'} </Button>}
+            {active <= 3 && <Button size="md" onClick={nextStep}>{language === 'English' ? 'Next Step' : 'Próximo Paso'}</Button> }
+            {active === 4 && <Button type="submit" size="md">{language === 'English' ? 'Submit' : 'Enviar'}</Button>}
             </Group>
             }
         </form>
