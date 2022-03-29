@@ -45,13 +45,20 @@ const steps = [
 ];
 
 const affiliates = [
-    { value: 'fresno', label: 'Fresno Grizzlies' },
     { value: 'roundRock', label: 'Round Rock Express' },
 ];
 
 const addresses = [
-    { value: '123', label: '123 Fake Street' },
-    { value: '456', label: '456 Imaginary Lane' },
+    { value: '10101 W. Parmer Lane. Austin, TX 78717 #1616', label: '10101 W. Parmer Lane. Austin, TX 78717 #1616' },
+    { value: '9400 W Parmer Lane. Austin, TX 78717 #932', label: '9400 W Parmer Lane. Austin, TX 78717 #932' },
+    { value: '9400 W Parmer Lane. Austin, TX 78717 #1838', label: '9400 W Parmer Lane. Austin, TX 78717 #1838' },
+    { value: '14199 N. Interstate Highway 35, Pflugerville, TX 78660 #03102', label: '14199 N. Interstate Highway 35, Pflugerville, TX 78660 #03102' },
+    { value: '10101 W. Parmer Lane. Austin, TX 78717 #1335', label: '10101 W. Parmer Lane. Austin, TX 78717 #1335' },
+    { value: '4301 Grand Ave Parkway. Austin, TX 78728 #1806', label: '4301 Grand Ave Parkway. Austin, TX 78728 #1806' },
+    { value: '1316 Town Center Drive. Pflugerville, TX 78660 #1501', label: '1316 Town Center Drive. Pflugerville, TX 78660 #1501' },
+    { value: '14199 N. Interstate Highway 35, Pflugerville, TX 78660 #12102', label: '14199 N. Interstate Highway 35, Pflugerville, TX 78660 #12102' },
+    { value: '1316 Town Center Drive. Pflugerville, TX 78660 #102', label: '1316 Town Center Drive. Pflugerville, TX 78660 #102' },
+    { value: '14199 N. Interstate Highway 35, Pflugerville, TX 78660 #07102', label: '14199 N. Interstate Highway 35, Pflugerville, TX 78660 #07102' },
 ];
 
 const issues = [
@@ -76,6 +83,7 @@ const MobileForm = ({ language, setLanguage }: Props) => {
             issue: '' as string | null,
             name: '' as string,
             phone: '' as string,
+            email: '' as string,
             message: '' as string,
         },
 
@@ -85,6 +93,32 @@ const MobileForm = ({ language, setLanguage }: Props) => {
             message: (value) => (value.length < 2 ? 'Please give us sufficient information about your issue' : null),
         },
     });
+
+        const onSubmit = async () => {
+            const res = await fetch('/api/sendgrid', {
+            body: JSON.stringify({
+                affiliate: form.values.affiliate,
+                address: form.values.address,
+                issue: form.values.issue,
+                name: form.values.name,
+                phone: form.values.phone,
+                email: form.values.email,
+                message: form.values.message,
+            }),
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            method: 'POST',
+            });
+            console.log('res', res);
+            if (res.ok) {
+                nextStep();
+            }
+            const { error } = await res.json();
+            if (error) {
+            console.log(error);
+            }
+        };
 
   return (
     <Box>
@@ -120,8 +154,8 @@ const MobileForm = ({ language, setLanguage }: Props) => {
                 </Box>
             </Center>
 
-        <form onSubmit={form.onSubmit(nextStep)} name="mobileContactForm" method="POST" data-netlify="true" action="/" data-netlify-honeypot="bot-field">
-        <input type="hidden" name="form-name" value="mobileContactForm" />
+        <form onSubmit={form.onSubmit(onSubmit)} name="mobileContactForm" method="POST" data-netlify="true" action="/" data-netlify-honeypot="bot-field">
+            <input type="hidden" name="form-name" value="mobileContactForm" />
             <p hidden>
                 <label>
                     Don’t fill this out: <input name="bot-field" />
@@ -181,6 +215,12 @@ const MobileForm = ({ language, setLanguage }: Props) => {
                   placeholder={language === 'English' ? 'Phone Number' : 'Numbero De Telefono'}
                   required
                   name="phone"
+                />
+                <TextInput
+                  {...form.getInputProps('email')}
+                  label={language === 'English' ? 'Email' : 'Email'}
+                  placeholder={language === 'English' ? 'Email' : 'Email'}
+                  name="email"
                 />
                 <Textarea
                   {...form.getInputProps('message')}

@@ -21,7 +21,7 @@ export default function App(props: AppProps) {
           colorScheme: 'dark',
         }}
       >
-        <Container size="xl">
+        <Container size="xl" sx={{ minHeight: '100vh' }}>
           <NotificationsProvider>
             <Component {...pageProps} />
           </NotificationsProvider>

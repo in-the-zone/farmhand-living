@@ -4,13 +4,20 @@ import React, { useState } from 'react';
 import { useForm } from '@mantine/form';
 
 const affiliates = [
-    { value: 'fresno', label: 'Fresno Grizzlies' },
     { value: 'roundRock', label: 'Round Rock Express' },
 ];
 
 const addresses = [
-    { value: '123', label: '123 Fake Street' },
-    { value: '456', label: '456 Imaginary Lane' },
+    { value: '10101 W. Parmer Lane. Austin, TX 78717 #1616', label: '10101 W. Parmer Lane. Austin, TX 78717 #1616' },
+    { value: '9400 W Parmer Lane. Austin, TX 78717 #932', label: '9400 W Parmer Lane. Austin, TX 78717 #932' },
+    { value: '9400 W Parmer Lane. Austin, TX 78717 #1838', label: '9400 W Parmer Lane. Austin, TX 78717 #1838' },
+    { value: '14199 N. Interstate Highway 35, Pflugerville, TX 78660 #03102', label: '14199 N. Interstate Highway 35, Pflugerville, TX 78660 #03102' },
+    { value: '10101 W. Parmer Lane. Austin, TX 78717 #1335', label: '10101 W. Parmer Lane. Austin, TX 78717 #1335' },
+    { value: '4301 Grand Ave Parkway. Austin, TX 78728 #1806', label: '4301 Grand Ave Parkway. Austin, TX 78728 #1806' },
+    { value: '1316 Town Center Drive. Pflugerville, TX 78660 #1501', label: '1316 Town Center Drive. Pflugerville, TX 78660 #1501' },
+    { value: '14199 N. Interstate Highway 35, Pflugerville, TX 78660 #12102', label: '14199 N. Interstate Highway 35, Pflugerville, TX 78660 #12102' },
+    { value: '1316 Town Center Drive. Pflugerville, TX 78660 #102', label: '1316 Town Center Drive. Pflugerville, TX 78660 #102' },
+    { value: '14199 N. Interstate Highway 35, Pflugerville, TX 78660 #07102', label: '14199 N. Interstate Highway 35, Pflugerville, TX 78660 #07102' },
 ];
 
 const issues = [
@@ -35,6 +42,7 @@ const StepForm = ({ language, setLanguage }: Props) => {
             issue: '' as string | null,
             name: '' as string,
             phone: '' as string,
+            email: '' as string,
             message: '' as string,
         },
 
@@ -45,9 +53,35 @@ const StepForm = ({ language, setLanguage }: Props) => {
         },
     });
 
+    const onSubmit = async () => {
+              const res = await fetch('/api/sendgrid', {
+                body: JSON.stringify({
+                  affiliate: form.values.affiliate,
+                  address: form.values.address,
+                  issue: form.values.issue,
+                  name: form.values.name,
+                  phone: form.values.phone,
+                  email: form.values.email,
+                  message: form.values.message,
+                }),
+                headers: {
+                  'Content-Type': 'application/json',
+                },
+                method: 'POST',
+              });
+              console.log('res', res);
+              if (res.ok) {
+                  nextStep();
+              }
+              const { error } = await res.json();
+              if (error) {
+                console.log(error);
+              }
+            };
+
   return (
     <>
-        <form onSubmit={form.onSubmit(nextStep)} name="desktopContactForm" method="POST" data-netlify="true" action="/" data-netlify-honeypot="bot-field">
+        <form onSubmit={form.onSubmit(onSubmit)} name="desktopContactForm" method="POST" data-netlify="true" action="/" data-netlify-honeypot="bot-field">
             <input type="hidden" name="form-name" value="desktopContactForm" />
             <p hidden>
                 <label>
@@ -90,7 +124,6 @@ const StepForm = ({ language, setLanguage }: Props) => {
                   size="lg"
                   label={language === 'English' ? 'Select Your Address' : 'Selecciona Un Dirección'}
                   placeholder={language === 'English' ? 'Select Your Address' : 'Selecciona Un Dirección'}
-                  searchable
                   data={addresses}
                   sx={{ width: '40%', padding: '3%' }}
                   required
@@ -121,20 +154,27 @@ const StepForm = ({ language, setLanguage }: Props) => {
                   {...form.getInputProps('name')}
                   label={language === 'English' ? 'Full Name' : 'Nombre Completa'}
                   placeholder={language === 'English' ? 'Full Name' : 'Nombre Completa'}
-                  size="lg"
+                  size="md"
                   required
                   name="name"
                 />
                 <TextInput
-                  size="lg"
+                  size="md"
                   {...form.getInputProps('phone')}
                   label={language === 'English' ? 'Phone Number' : 'Numero De Telefono'}
                   placeholder={language === 'English' ? 'Phone Number' : 'Numbero De Telefono'}
                   required
                   name="phone"
                 />
+                <TextInput
+                  size="md"
+                  {...form.getInputProps('email')}
+                  label={language === 'English' ? 'Email' : 'Email'}
+                  placeholder={language === 'English' ? 'Email' : 'Email'}
+                  name="email"
+                />
                 <Textarea
-                  size="lg"
+                  size="md"
                   {...form.getInputProps('message')}
                   label={language === 'English' ? 'More Info' : 'Mas Informacion'}
                   placeholder={language === 'English' ? 'Tell us more about your inquiry...' : 'Danos más información sobre tu consulta'}

@@ -10,4 +10,6 @@ module.exports = {
     'react/react-in-jsx-scope': 'off',
     'linebreak-style': 0,
   },
+
+  ignorePatterns: ['sendgrid.js', 'index.tsx'],
 };
