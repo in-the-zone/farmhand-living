@@ -215,7 +215,7 @@ const MobileForm = ({ language, setLanguage }: Props) => {
             <Group position="center" mt="xl">
             {active >= 1 && <Button size="md" variant="default" onClick={prevStep}> {language === 'English' ? 'Back' : 'Atrás'} </Button>}
             {active <= 3 && <Button size="md" onClick={nextStep}>{language === 'English' ? 'Next Step' : 'Próximo Paso'}</Button> }
-            {active === 4 && <Button type="submit" size="md">{language === 'English' ? 'Submit' : 'Enviar'}</Button>}
+            {active === 4 && <Button name="submitButton" type="submit" size="md">{language === 'English' ? 'Submit' : 'Enviar'}</Button>}
             </Group>
             }
         </form>
