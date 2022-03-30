@@ -1,7 +1,8 @@
 /* eslint-disable no-console */
 import React, { useState } from 'react';
-import Link from 'next/link'
-import { Box, MediaQuery, Text, Center, Button } from '@mantine/core';
+import { Box, MediaQuery, Text, Center } from '@mantine/core';
+import StepForm from '../components/StepForm';
+import MobileForm from '../components/MobileForm';
 import SVG from '../components/svg';
 
 const welcomeMessage = {
@@ -9,7 +10,8 @@ const welcomeMessage = {
   spanish: 'Bienvenido al Portal de Ayuda',
 };
 
-export default function HomePage() {
+export default function Support() {
+  const [language, setLanguage] = useState<string | null>('English');
 
   return (
     <>
@@ -18,7 +20,7 @@ export default function HomePage() {
       largerThan="sm"
       styles={{ display: 'none' }}
     >
-      <Center pt={'20%'} pb={10}>
+      <Center pt={30} pb={10}>
           <SVG.Logo
             fill="white"
             style={{ width: '90%' }}
@@ -31,15 +33,15 @@ export default function HomePage() {
       smallerThan="sm"
       styles={{ display: 'none' }}
     >
-      <Center pt={'10%'} pb={20}>
+      <Center pt={30} pb={10}>
           <SVG.Logo
             fill="white"
-            style={{ width: '50%' }}
+            style={{ width: '30%' }}
           />
       </Center>
     </MediaQuery>
 
-      <Box sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
+      <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
         <Text
           sx={{
             fontSize: 24,
@@ -50,14 +52,28 @@ export default function HomePage() {
               fontSize: 16 },
           }}
         >
-            Welcome to Farmhand Living
+            {language === 'English' ? welcomeMessage.english : welcomeMessage.spanish}
         </Text>
-        <Box pt={20}>
-          <Link href="/support">
-            <Button size="xl">Support</Button>
-          </Link>
-        </Box>
       </Box>
+
+      <MediaQuery
+        smallerThan="sm"
+        styles={{ display: 'none' }}
+      >
+        <Box>
+          <StepForm language={language} setLanguage={setLanguage} />
+        </Box>
+      </MediaQuery>
+
+      <MediaQuery
+        largerThan="sm"
+        styles={{ display: 'none' }}
+      >
+        <Box>
+          <MobileForm language={language} setLanguage={setLanguage} />
+        </Box>
+      </MediaQuery>
+
     </>
   );
 }

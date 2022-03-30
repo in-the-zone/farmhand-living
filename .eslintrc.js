@@ -11,5 +11,5 @@ module.exports = {
     'linebreak-style': 0,
   },
 
-  ignorePatterns: ['sendgrid.js', 'index.tsx'],
+  ignorePatterns: ['sendgrid.js', 'index.tsx', 'support.tsx'],
 };
