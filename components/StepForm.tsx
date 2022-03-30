@@ -187,7 +187,7 @@ const StepForm = ({ language, setLanguage }: Props) => {
             <Stepper.Completed>
                 <Center sx={{ paddingTop: '5%', paddingBottom: '5%' }}>
                     <Text sx={{ fontSize: 24, fontWeight: 600 }}>
-                        {language === 'English' ? 'We are getting to work on your issue now!' : '¡Nos estamos poniendo a trabajar en su problema ahora!'}
+                        {language === 'English' ? 'Thank you, we are getting to work on your issue now!' : '¡Gracias, nos estamos poniendo a trabajar en su problema ahora!'}
                     </Text>
                 </Center>
             </Stepper.Completed>
