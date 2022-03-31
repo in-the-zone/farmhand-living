@@ -6,17 +6,18 @@ async function sendEmail(req, res) {
   try {
     // console.log("REQ.BODY", req.body);
     await sendgrid.send({
-      to: ["mitch@inthezone.dev", 'support@farmhandliving.com'], // Your email where you'll receive emails
+      to: ["mitch@inthezone.dev", 'support@farmhandliving.com', req.body.email], // Your email where you'll receive emails
       from: "support@farmhandliving.com", // your website email address here
       subject: 'New Farmhand Living Work Ticket',
       html: `
-              <div> affiliate : ${req.body.affiliate} </div>
-              <div> address : ${req.body.address} </div>
-              <div> issue : ${req.body.issue} </div>
-              <div> player name : ${req.body.name} </div>
-              <div> phone : ${req.body.phone} </div>
-              <div> email : ${req.body.email} </div>
-              <div> message : ${req.body.message} </div>
+              <div> Your submission to Farmhand Living was recieved. Thank you! <div> <br>
+              <div> affiliate : ${req.body.affiliate} </div> <br>
+              <div> address : ${req.body.address} </div> <br>
+              <div> issue : ${req.body.issue} </div> <br>
+              <div> player name : ${req.body.name} </div> <br>
+              <div> phone : ${req.body.phone} </div> <br>
+              <div> email : ${req.body.email} </div> <br>
+              <div> message : ${req.body.message} </div> <br>
             `,
     });
   } catch (error) {
