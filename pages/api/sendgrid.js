@@ -14,13 +14,13 @@ async function sendEmail(req, res) {
       subject: 'New Farmhand Living Work Ticket',
       html: `
               <div> Your submission to Farmhand Living was recieved. Thank you! <div> <br>
-              <div> affiliate : ${req.body.affiliate} </div> <br>
-              <div> address : ${req.body.address} </div> <br>
-              <div> issue : ${req.body.issue} </div> <br>
-              <div> player name : ${req.body.name} </div> <br>
-              <div> phone : ${req.body.phone} </div> <br>
-              <div> email : ${req.body.email} </div> <br>
-              <div> message : ${req.body.message} </div> <br>
+              <div> Affiliate : ${req.body.affiliate} </div> <br>
+              <div> Address : ${req.body.address} </div> <br>
+              <div> Issue : ${req.body.issue} </div> <br>
+              <div> Player Name : ${req.body.name} </div> <br>
+              <div> Phone : ${req.body.phone} </div> <br>
+              <div> Email : ${req.body.email} </div> <br>
+              <div> Message : ${req.body.message} </div> <br>
             `,
     });
   } catch (error) {
