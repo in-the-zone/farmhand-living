@@ -7,7 +7,10 @@ async function sendEmail(req, res) {
     // console.log("REQ.BODY", req.body);
     await sendgrid.send({
       to: ["mitch@inthezone.dev", 'support@farmhandliving.com', req.body.email], // Your email where you'll receive emails
-      from: "support@farmhandliving.com", // your website email address here
+      from: {
+        name: 'Farmhand Living Support',
+        email: "support@farmhandliving.com" // your website email address here
+      },
       subject: 'New Farmhand Living Work Ticket',
       html: `
               <div> Your submission to Farmhand Living was recieved. Thank you! <div> <br>
