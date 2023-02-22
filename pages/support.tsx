@@ -40,21 +40,6 @@ export default function Support() {
       </Center>
     </MediaQuery>
 
-      <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-        <Text
-          sx={{
-            fontSize: 24,
-            fontWeight: 600,
-            padding: '2% 2% 2% 2%',
-            '@media (max-width: 755px)': {
-              padding: '4% 2% 4% 2%',
-              fontSize: 16 },
-          }}
-        >
-            {language === 'English' ? welcomeMessage.english : welcomeMessage.spanish}
-        </Text>
-      </Box>
-
       <MediaQuery
         smallerThan="sm"
         styles={{ display: 'none' }}

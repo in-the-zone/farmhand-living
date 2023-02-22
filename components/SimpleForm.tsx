@@ -47,6 +47,20 @@ const SimpleForm = () => {
 
   return (
     <Stack sx={{padding: "0 5%"}}>
+      <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+       {view === "form" && <Text
+          sx={{
+            fontSize: 24,
+            fontWeight: 600,
+            padding: '2% 2% 2% 2%',
+            '@media (max-width: 755px)': {
+              padding: '4% 2% 4% 2%',
+              fontSize: 16 },
+          }}
+        >
+            Welcome to the Player Help Portal
+        </Text>}
+      </Box>
         <form onSubmit={form.onSubmit(onSubmit)} >
             <Center sx={view === "form" ? { display: 'block' } : { display: 'none' }}>
             <Box sx={{ width: '100%' }}>
@@ -73,7 +87,7 @@ const SimpleForm = () => {
                 <Textarea
                   {...form.getInputProps('message')}
                   label={ 'More Info' }
-                  placeholder={ 'Tell us more about your problem...' }
+                  placeholder={ 'Tell us more...' }
                   required
                   name="message"
                 />
@@ -93,7 +107,7 @@ const SimpleForm = () => {
                             textAlign: 'center' },
                         }}
                         >
-                        { 'Thank you, we are getting to work on your issue now!'}
+                        { 'Message received. Thank you!'}
                         </Text>
                     </Center>
                 </Box>
