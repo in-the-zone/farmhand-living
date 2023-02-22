@@ -13,31 +13,31 @@ export default function HomePage() {
 
   return (
     <>
-    {/* mobile logo */}
-    <MediaQuery
-      largerThan="sm"
-      styles={{ display: 'none' }}
-    >
-      <Center pt={'20%'} pb={10}>
+      {/* mobile logo */}
+      <MediaQuery
+        largerThan="sm"
+        styles={{ display: 'none' }}
+      >
+        <Center pt={'20%'} pb={10}>
           <SVG.Logo
             fill="white"
             style={{ width: '90%' }}
           />
-      </Center>
-    </MediaQuery>
+        </Center>
+      </MediaQuery>
 
-    {/* desktop logo */}
-    <MediaQuery
-      smallerThan="sm"
-      styles={{ display: 'none' }}
-    >
-      <Center pt={'10%'} pb={20}>
+      {/* desktop logo */}
+      <MediaQuery
+        smallerThan="sm"
+        styles={{ display: 'none' }}
+      >
+        <Center pt={'10%'} pb={20}>
           <SVG.Logo
             fill="white"
             style={{ width: '50%' }}
           />
-      </Center>
-    </MediaQuery>
+        </Center>
+      </MediaQuery>
 
       <Box sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
         <Text
@@ -47,10 +47,11 @@ export default function HomePage() {
             padding: '2% 2% 2% 2%',
             '@media (max-width: 755px)': {
               padding: '4% 2% 4% 2%',
-              fontSize: 16 },
+              fontSize: 16
+            },
           }}
         >
-            Welcome to Farmhand Living
+          Welcome to Farmhand Living
         </Text>
         <Box pt={20}>
           <Link href="/support">

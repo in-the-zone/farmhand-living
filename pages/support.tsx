@@ -1,9 +1,8 @@
 /* eslint-disable no-console */
 import React, { useState } from 'react';
 import { Box, MediaQuery, Text, Center } from '@mantine/core';
-import StepForm from '../components/StepForm';
-import MobileForm from '../components/MobileForm';
 import SVG from '../components/svg';
+import SimpleForm from '../components/SimpleForm';
 
 const welcomeMessage = {
   english: 'Welcome to the Player Help Portal',
@@ -61,7 +60,7 @@ export default function Support() {
         styles={{ display: 'none' }}
       >
         <Box>
-          <StepForm language={language} setLanguage={setLanguage} />
+          <SimpleForm />
         </Box>
       </MediaQuery>
 
@@ -70,7 +69,7 @@ export default function Support() {
         styles={{ display: 'none' }}
       >
         <Box>
-          <MobileForm language={language} setLanguage={setLanguage} />
+        <SimpleForm />
         </Box>
       </MediaQuery>
 

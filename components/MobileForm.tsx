@@ -88,9 +88,9 @@ const MobileForm = ({ language, setLanguage }: Props) => {
         },
 
         validate: {
-            name: (value) => (value.length < 2 ? 'Name must have at least 2 letters' : null),
-            phone: (value) => (value.length < 10 ? 'Please Enter Valid Phone Number' : null),
-            message: (value) => (value.length < 2 ? 'Please give us sufficient information about your issue' : null),
+            name: (value: string) => (value.length < 2 ? 'Name must have at least 2 letters' : null),
+            phone: (value: string) => (value.length < 10 ? 'Please Enter Valid Phone Number' : null),
+            message: (value: string) => (value.length < 2 ? 'Please give us sufficient information about your issue' : null),
         },
     });
 
